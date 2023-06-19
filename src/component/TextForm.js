@@ -18,23 +18,26 @@ export default function TextForm(props) {
     let newText = textAreaValue;
     
     if (newText !== "") {
-        alert("Text Copied!");
         navigator.clipboard.writeText(newText);
+        alert("Text Copied!");
     }
     else{
         alert("Input Field is Empty");
     }
   };
+  
   return (
-    <>
-      <div className="flex flex-col items-center mt-10 gap-6   ">
+    <div className="relative">
+   
+      <div  className={`flex flex-col items-center gap-6 pt-6 h-screen text-${props.screenMode === 'white'?'black':'white'}`} >
         <h1 className="font-extrabold text-2xl font-mono">{props.heading}</h1>
         <textarea
-          rows="8"
+          rows="5"
           cols="100"
-          className="border border-red-400 rounded-lg bg-slate-100 p-6 font-mono text-xl "
+          className={`border border-red-400 rounded-lg bg-${props.screenMode === 'white'?'slate-100':'black'} p-6 font-mono text-xl`} 
           onChange={changeHandler}
           value={textAreaValue}
+         
         ></textarea>
         <div className="flex gap-4">
           <button
@@ -56,21 +59,21 @@ export default function TextForm(props) {
             Copy Text
           </button>
         </div>
-        <div className="flex w-[1080px] justify-between mt-5">
-        <div className="flex flex-col items-start border border-black p-6 rounded-md bg-slate-100">
+        <div className="flex w-[1080px] justify-between mt-5" >
+        <div className={`flex flex-col items-start border border-black p-6 rounded-md bg-${props.screenMode === 'white'?'slate-100':'black'}`} >
           <p className="text-2xl font-bold">Your Text Summary</p>
           <p className="text-xl">
             <span className="text-2xl font-mono font-extrabold">{textAreaValue.length}</span> Characters and{" "}
-            <span className="text-2xl font-mono font-extrabold">{textAreaValue.split(" ").length}</span> No Of Characters
+            <span className="text-2xl font-mono font-extrabold">{textAreaValue === ''?'0': textAreaValue.split(" ").length}</span> No Of Words
           </p>
-          <p>It takes <span  className="text-2xl font-mono font-extrabold">{0.008 * textAreaValue.split(" ").length}</span> minutes to read</p>
+          <p>It takes <span  className="text-2xl font-mono font-extrabold">{textAreaValue === ''?'0':0.008 * textAreaValue.split(" ").length}</span> minutes to read</p>
         </div>
-        <div className="flex flex-col w-[25rem] items-start border border-black p-6 rounded-md bg-slate-100">
+        <div className={`flex flex-col min-w-[25rem] items-start border border-black p-6 rounded-md bg-${props.screenMode === 'white'?'slate-100':'black'}`}>
           <p className="text-2xl font-bold">Text Preview</p>
           <p className="max-w-[20rem] overflow-hidden">{textAreaValue}</p>
         </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
